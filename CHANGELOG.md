@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `skills/engineering/git-commit-clean/` — Skill for running `git add` / `commit` / `push` without a Co-Authored-By trailer or AI-attribution footer.
+
 ## [0.1.0] - 2026-05-16
 
 ### Added
