@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `claude/scripts/promote-to-source.sh` and `claude/commands/promote.md` — bidirectional flow: a project can now push (add or modify) Skills/Commands back to ai-engineering. Auto-detects ADD vs MODIFY mode; refuses no-op promotions; runs lint; does not auto-commit upstream (separate repo).
 - `claude/` — All Claude Code-specific artifacts now live under this namespace (see ADR 0003).
 - `claude/commands/` — Slash Commands as a first-class category alongside Skills: `/bootstrap`, `/commit`, `/adr`, `/claude-md`. Commands are user-triggered rituals; Skills are AI-discovered lenses.
 - `claude/skills/engineering/claude-md-writer/` — Skill for creating/updating a project's CLAUDE.md as a living instruction file. Backs the `/claude-md` command.
@@ -16,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `docs/decisions/0003-claude-namespace.md` — ADR documenting the namespace split.
 
 ### Changed
+- Edit policy: `.claude/skills/` and `.claude/commands/` are still read-only by default, but the new exception is "edit-then-promote" — editing the runtime is OK if you immediately `/promote` the change back to `.ai/claude/`. After the upstream commit + resync, runtime and source are symmetric again.
 - **Layout: Claude Code-specific artifacts moved under `claude/`**. Affected paths:
   - `skills/` → `claude/skills/`
   - `commands/` → `claude/commands/` (new in this release, never lived at the old path on main)

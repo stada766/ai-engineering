@@ -52,9 +52,10 @@ your-project/
 ## 編集権限ルール
 
 - **`.ai/` を直接編集しない.** 編集したい場合は `ai-engineering` リポジトリ側を変更し PR → submodule update。
-- **`.claude/skills/` も直接編集しない.** runtime コピーなので、変更は `.ai/` 側で行い再 sync する。
-- **`.claude/commands/` も同様.** ただし `.ai/` に対応 source の無い command はプロジェクト固有とみなされ drift 検査で skip される（user-authored）。
-- **`.claude/project-skills/` だけが project ローカルの編集対象.**
+- **`.claude/skills/` `.claude/commands/` は基本 read-only.** runtime コピーなので、変更は `.ai/` 側で行い再 sync する。
+- **`.claude/project-skills/` だけが project ローカル新規作成の場所.**
+- **例外: 改修して上流に戻す場合は `.claude/` 直接編集も OK.** `.claude/skills/<name>/` や `.claude/commands/<name>.md` を直接編集してプロジェクト内で動作確認した後、`/promote` または `promote-to-source.sh --skill <name>` / `--command <name>` で `.ai/claude/` に戻す。コピー後 `--resync-all` でランタイムとソースが再び一致する。
+- **`.ai/` に対応 source の無い `.claude/commands/<name>.md`** は user-authored 扱い。drift 検査では `[CMD-LOCAL]` として skip される。
 
 ## 更新フロー
 
@@ -66,6 +67,26 @@ git add .ai && git commit -m "chore: bump .ai submodule"
 # runtime に再反映（同じスクリプトで上書き）
 ./.ai/claude/scripts/sync-to-project.sh --resync-all
 ```
+
+## プロジェクトから ai-engineering に追加・修正する (`/promote`)
+
+ローカルで育てた skill / command を共有資産に戻すための upstream 方向の動線：
+
+```bash
+# 何が promote 候補か確認
+./.ai/claude/scripts/promote-to-source.sh --list-promotable
+
+# 新規追加 (project-skill から Core へ)
+./.ai/claude/scripts/promote-to-source.sh --skill producer-ai --scope ai
+
+# 修正 (.claude/skills/<name>/ で編集したものを source に戻す。scope は自動検出)
+./.ai/claude/scripts/promote-to-source.sh --skill adr-writer
+
+# Command の新規追加・修正 (どちらも同じ呼び出し。auto-detect)
+./.ai/claude/scripts/promote-to-source.sh --command release
+```
+
+スクリプトは copy + lint のみ。`.ai/` 側の commit & push はユーザが別途行う（submodule は別 repo なので）。Claude Code から `/promote skill <name>` を呼ぶと、その流れまで会話で誘導してくれる。詳しくは `commands/promote.md`。
 
 ## Drift 検出
 
