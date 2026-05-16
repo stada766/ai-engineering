@@ -1,0 +1,25 @@
+# claude/always-include.txt
+#
+# Skills and Commands that are ALWAYS synced regardless of project context.
+# - install.sh syncs everything listed here.
+# - /sync-recommended always marks these as "Add" with the reason
+#   "always-include policy" — they bypass per-project judgement.
+#
+# Format:
+#   cmd:<command-name>             # → .ai/claude/commands/<name>.md
+#   skill:<scope>/<skill-name>     # → .ai/claude/skills/<scope>/<name>/
+#   # comment lines start with #
+#
+# Edit this file to change the default toolkit for new projects.
+
+# --- Commands: minimum operational toolkit -----------------------------------
+cmd:bootstrap
+cmd:sync-recommended
+cmd:commit
+cmd:adr
+cmd:claude-md
+cmd:promote
+
+# --- Skills: back the commands above and enforce baseline discipline ---------
+skill:engineering/adr-writer
+skill:engineering/claude-md-writer

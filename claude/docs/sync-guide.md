@@ -2,7 +2,22 @@
 
 各プロジェクトへの配布手順。**Submodule = source, Copy = runtime** モデル。
 
-## 初期セットアップ
+## 推奨: 新規プロジェクトのワンライナー
+
+GitHub で空 repo を作って clone した直後：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/stada766/ai-engineering/main/install.sh | bash
+```
+
+`install.sh` は以下を行う：
+1. `.ai/` として submodule add
+2. `.claude/{skills,commands,project-skills}` 作成
+3. 最小キット sync (commands: `/bootstrap /sync-recommended /commit /adr /claude-md /promote`, skills: `adr-writer / claude-md-writer`)
+
+その後 `claude` を起動 → `/bootstrap <vision>` → `/sync-recommended` でフロー完結。
+
+## 手動セットアップ（細かく制御したい場合）
 
 ```bash
 cd /path/to/your-project
@@ -11,7 +26,7 @@ cd /path/to/your-project
 git submodule add https://github.com/stada766/ai-engineering.git .ai
 
 # 2. .claude/ ディレクトリ（runtime）
-mkdir -p .claude/skills .claude/project-skills
+mkdir -p .claude/skills .claude/commands .claude/project-skills
 
 # 3. 必要な Skill と Command だけコピー
 ./.ai/claude/scripts/sync-to-project.sh \

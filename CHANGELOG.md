@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `claude/always-include.txt` — editable default-toolkit policy file. Lists Skills and Commands that are always synced by `install.sh` and always classified as "Add" by `/sync-recommended`, regardless of project context. Repo-level configuration (not project-level).
+- `claude/scripts/sync-to-project.sh --always` — new mode that reads `always-include.txt` and syncs everything listed.
+- `install.sh` (top-level, curl-able) — one-liner project bootstrap. Adds ai-engineering as a submodule, creates `.claude/` runtime dirs, and runs `sync-to-project.sh --always`.
+- `claude/commands/sync-recommended.md` — Claude-driven recommendation pass. Reads `CLAUDE.md` and `docs/decisions/*.md`, judges which Skills and Commands fit the project from their `description:` fields, and syncs the approved set. No hardcoded keyword tables — pure semantic judgement.
 - `claude/scripts/promote-to-source.sh` and `claude/commands/promote.md` — bidirectional flow: a project can now push (add or modify) Skills/Commands back to ai-engineering. Auto-detects ADD vs MODIFY mode; refuses no-op promotions; runs lint; does not auto-commit upstream (separate repo).
 - `claude/` — All Claude Code-specific artifacts now live under this namespace (see ADR 0003).
 - `claude/commands/` — Slash Commands as a first-class category alongside Skills: `/bootstrap`, `/commit`, `/adr`, `/claude-md`. Commands are user-triggered rituals; Skills are AI-discovered lenses.

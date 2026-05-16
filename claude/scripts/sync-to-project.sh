@@ -7,6 +7,7 @@
 #   ./.ai/claude/scripts/sync-to-project.sh --skill engineering/adr-writer
 #   ./.ai/claude/scripts/sync-to-project.sh --skill engineering/adr-writer --command bootstrap
 #   ./.ai/claude/scripts/sync-to-project.sh --command commit --command adr --command claude-md
+#   ./.ai/claude/scripts/sync-to-project.sh --always              # sync everything in claude/always-include.txt
 #   ./.ai/claude/scripts/sync-to-project.sh --resync-all          # re-copy everything already in .claude/
 #   ./.ai/claude/scripts/sync-to-project.sh --list                # list available skills in .ai/claude/
 #   ./.ai/claude/scripts/sync-to-project.sh --list-commands       # list available commands in .ai/claude/
@@ -73,6 +74,28 @@ list_commands() {
     | sort
 }
 
+sync_always_include() {
+  local file="$CLAUDE_SRC_DIR/always-include.txt"
+  if [[ ! -f "$file" ]]; then
+    echo "Error: $file not found. Cannot apply --always." >&2
+    exit 1
+  fi
+
+  echo "Reading always-include policy from $file ..."
+  local line
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line%%#*}"
+    line="${line// /}"
+    line="${line//$'\t'/}"
+    [[ -z "$line" ]] && continue
+    case "$line" in
+      skill:*) copy_skill "${line#skill:}" ;;
+      cmd:*)   copy_command "${line#cmd:}" ;;
+      *)       echo "[WARN] unknown entry in always-include.txt: '$line' (expected 'skill:<scope>/<name>' or 'cmd:<name>')" ;;
+    esac
+  done < "$file"
+}
+
 resync_all() {
   if [[ -d "$RUNTIME_SKILL_DIR" ]]; then
     for dst in "$RUNTIME_SKILL_DIR"/*/; do
@@ -114,10 +137,11 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --skill)         skills+=("$2"); shift 2 ;;
     --command)       commands+=("$2"); shift 2 ;;
+    --always)        mode="always"; shift ;;
     --resync-all)    mode="resync"; shift ;;
     --list)          mode="list-skills"; shift ;;
     --list-commands) mode="list-commands"; shift ;;
-    -h|--help)       sed -n '2,18p' "$0"; exit 0 ;;
+    -h|--help)       sed -n '2,19p' "$0"; exit 0 ;;
     *) echo "Unknown arg: $1" >&2; exit 1 ;;
   esac
 done
@@ -125,6 +149,7 @@ done
 case "$mode" in
   list-skills)   list_skills ;;
   list-commands) list_commands ;;
+  always)        sync_always_include ;;
   resync)        resync_all ;;
   copy)
     if [[ ${#skills[@]} -eq 0 && ${#commands[@]} -eq 0 ]]; then

@@ -47,23 +47,42 @@ docs/
 - **Command** — ユーザが `/name` で明示起動する **ritual / action**。プロジェクト初期化 `/bootstrap`、コミット `/commit` など。
 - **両建て** — `/adr` `/claude-md` は Skill（手順の本体）と Command（薄いエントリ）両方を持つ。
 
-## 使い方
-
-各プロジェクトでは：
+## Quick Start (新規プロジェクト)
 
 ```bash
-# 1. このリポジトリを submodule で追加（source）
-git submodule add https://github.com/stada766/ai-engineering.git .ai
+# 1. GitHub で空 repo 作成 → git clone → cd
+git clone <your-new-empty-repo-url> && cd <project>
 
-# 2. 必要な Skill と Command だけ runtime にコピー
+# 2. install.sh をワンライナーで実行（submodule + 最小キット sync）
+curl -fsSL https://raw.githubusercontent.com/stada766/ai-engineering/main/install.sh | bash
+
+# 3. Claude Code を起動
+claude
+
+# 4. (Claude 内) vision から ADR + CLAUDE.md を生成
+/bootstrap <一行で何を作るか>
+
+# 5. (Claude 内) 生成物を読んで Claude が必要な Skill / Command を推薦・sync
+/sync-recommended
+
+# 6. 以降の運用
+#   /adr <decision>          新しい設計判断
+#   /claude-md               CLAUDE.md 更新
+#   /commit                  Co-Authored-By 無しでコミット
+#   /promote skill <name>    project-skill を ai-engineering に昇格
+```
+
+## 既存プロジェクトに追加するとき
+
+```bash
+git submodule add https://github.com/stada766/ai-engineering.git .ai
+mkdir -p .claude/{skills,commands,project-skills}
 ./.ai/claude/scripts/sync-to-project.sh \
   --skill engineering/adr-writer \
   --skill engineering/tdd-enforcer \
   --command bootstrap \
   --command commit \
   --command adr
-
-# 3. プロジェクト固有 Skill は .claude/project-skills/ に書く
 ```
 
 詳しくは [`claude/docs/sync-guide.md`](claude/docs/sync-guide.md)。
