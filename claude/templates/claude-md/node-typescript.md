@@ -1,6 +1,6 @@
 # <Project Name>
 
-<!-- Copy from stacks/node-typescript/CLAUDE.md and customize for this project. -->
+<!-- Copy from stacks/node-typescript/ai-instructions.md and customize for this project. -->
 
 ## Project context
 
@@ -19,7 +19,7 @@
 
 ## Stack
 
-<stacks/node-typescript/CLAUDE.md の内容を必要に応じて取り込む>
+<stacks/node-typescript/ai-instructions.md の内容を必要に応じて取り込む>
 
 ## Don'ts (project-specific)
 

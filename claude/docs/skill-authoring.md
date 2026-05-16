@@ -1,22 +1,22 @@
 # Skill Authoring Guide
 
-新しい Skill を書くときの作法。
+新しい Skill を書くときの作法。**ユーザ明示起動の ritual を作りたい場合は Skill ではなく Command** にする → [`command-authoring.md`](command-authoring.md)。
 
 ## 1. 命名と配置
 
 | ディレクトリ | スコープ | 例 |
 |---|---|---|
-| `skills/engineering/` | 言語・スタック非依存の普遍的スキル | `adr-writer`, `tdd-enforcer` |
-| `skills/backend/` | サーバ・ランタイム系 | `event-driven-runtime` |
-| `skills/ai/` | AI/LLM プロダクト設計系 | `prompt-design` |
-| `skills/frontend/` | UI / UX 系 | `ambient-ux-review` |
+| `claude/skills/engineering/` | 言語・スタック非依存の普遍的スキル | `adr-writer`, `tdd-enforcer` |
+| `claude/skills/backend/` | サーバ・ランタイム系 | `event-driven-runtime` |
+| `claude/skills/ai/` | AI/LLM プロダクト設計系 | `prompt-design` |
+| `claude/skills/frontend/` | UI / UX 系 | `ambient-ux-review` |
 
 ディレクトリ名 = `name` = kebab-case。
 
 ## 2. テンプレートをコピー
 
 ```bash
-cp -r templates/skill skills/<scope>/<your-skill-name>
+cp -r claude/templates/skill claude/skills/<scope>/<your-skill-name>
 ```
 
 ## 3. frontmatter を埋める
@@ -67,7 +67,7 @@ superseded_by: null
 `SKILL.md` 本文を肥大化させずに、具体例は `examples/` 配下に置く。
 
 ```
-skills/engineering/adr-writer/
+claude/skills/engineering/adr-writer/
 ├── SKILL.md
 ├── examples/
 │   ├── good-adr.md
@@ -85,5 +85,5 @@ skills/engineering/adr-writer/
 ## 8. PR を出す前に
 
 ```bash
-./scripts/lint-skills.sh skills/<scope>/<your-skill-name>
+./claude/scripts/lint-skills.sh claude/skills/<scope>/<your-skill-name>
 ```

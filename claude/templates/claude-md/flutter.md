@@ -1,6 +1,6 @@
 # <Project Name>
 
-<!-- Copy from stacks/flutter/CLAUDE.md and customize for this project. -->
+<!-- Copy from stacks/flutter/ai-instructions.md and customize for this project. -->
 
 ## Project context
 
@@ -18,7 +18,7 @@
 
 ## Stack
 
-<stacks/flutter/CLAUDE.md の内容を必要に応じて取り込む>
+<stacks/flutter/ai-instructions.md の内容を必要に応じて取り込む>
 
 ## Don'ts (project-specific)
 

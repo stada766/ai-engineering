@@ -59,7 +59,7 @@ documentation drift を避ける。
 
 1. このファイルを `your-project/.claude/project-skills/adr-writer-with-runtime-rules/SKILL.md` にコピー
 2. 「AI Runtime Rules」「Architecture Consistency Rules」の文言をプロジェクト固有の哲学・固有名詞に置換
-3. Core の `adr-writer` を sync しておく: `.ai/scripts/sync-to-project.sh --skill engineering/adr-writer`
+3. Core の `adr-writer` を sync しておく: `.ai/claude/scripts/sync-to-project.sh --skill engineering/adr-writer`
 4. status を `stable` に上げる
 5. `depends_on:` の `engineering/adr-writer` は「同じプロジェクトに sync 済みであること」を示す signal
 

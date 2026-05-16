@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
-# Lint SKILL.md files: enforce frontmatter completeness and size limit.
+# Lint SKILL.md files under claude/skills: enforce frontmatter completeness and size limit.
 #
 # Usage:
-#   ./scripts/lint-skills.sh                       # lint all skills
-#   ./scripts/lint-skills.sh skills/engineering/adr-writer   # lint one
+#   ./claude/scripts/lint-skills.sh                                  # lint all skills
+#   ./claude/scripts/lint-skills.sh claude/skills/engineering/adr-writer
 #
 # Checks:
 #   - SKILL.md exists
-#   - frontmatter has: name, version, last_updated, scope, responsibility, status, compatible_with
+#   - frontmatter has: name, description, version, last_updated, scope, responsibility, status, compatible_with
 #   - responsibility is a single non-empty line
 #   - body (after frontmatter) is <= 300 lines
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CLAUDE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MAX_BODY_LINES=300
 REQUIRED_FIELDS=(name description version last_updated scope responsibility status compatible_with)
 
@@ -23,7 +23,7 @@ lint_skill() {
   local skill_dir="$1"
   local skill_md="$skill_dir/SKILL.md"
   local rel
-  rel="$(realpath --relative-to="$REPO_ROOT" "$skill_dir" 2>/dev/null || echo "$skill_dir")"
+  rel="$(realpath --relative-to="$CLAUDE_ROOT/.." "$skill_dir" 2>/dev/null || echo "$skill_dir")"
 
   if [[ ! -f "$skill_md" ]]; then
     echo "[FAIL] $rel: SKILL.md not found"
@@ -31,11 +31,9 @@ lint_skill() {
     return
   fi
 
-  # Extract frontmatter (between first two --- lines)
   local fm
   fm=$(awk '/^---$/{c++; next} c==1{print} c==2{exit}' "$skill_md")
 
-  # Required fields
   for f in "${REQUIRED_FIELDS[@]}"; do
     if ! echo "$fm" | grep -qE "^${f}:"; then
       echo "[FAIL] $rel: missing frontmatter field '${f}'"
@@ -43,16 +41,13 @@ lint_skill() {
     fi
   done
 
-  # responsibility single-line non-empty
   local resp
-  resp=$(echo "$fm" | awk -F': *' '/^responsibility:/ {sub(/^responsibility: */, ""); print; exit}' "$skill_md" 2>/dev/null || true)
   resp=$(grep -E '^responsibility:' "$skill_md" | head -1 | sed -E 's/^responsibility: *//; s/^"//; s/"$//')
   if [[ -z "${resp// }" ]]; then
     echo "[FAIL] $rel: responsibility is empty"
     fail=1
   fi
 
-  # Body length
   local body_lines
   body_lines=$(awk 'BEGIN{c=0} /^---$/{c++; next} c>=2 {print}' "$skill_md" | wc -l | tr -d ' ')
   if (( body_lines > MAX_BODY_LINES )); then
@@ -72,7 +67,7 @@ if [[ $# -gt 0 ]]; then
 else
   while IFS= read -r -d '' dir; do
     lint_skill "$dir"
-  done < <(find "$REPO_ROOT/skills" -mindepth 2 -maxdepth 2 -type d -print0)
+  done < <(find "$CLAUDE_ROOT/skills" -mindepth 2 -maxdepth 2 -type d -print0)
 fi
 
 exit $fail

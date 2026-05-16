@@ -1,6 +1,6 @@
-# Stack: Node + TypeScript (CLAUDE.md template)
+# Stack: Node + TypeScript — AI Instructions
 
-このファイルをプロジェクトの `CLAUDE.md` の起点としてコピー / 改変する。
+このファイルはプロジェクトの AI 向け指示書（Claude Code なら `CLAUDE.md`、他ツールなら `AGENTS.md` 等）の起点としてコピー / 改変する。ベンダ非依存の素材として用意されている。
 
 ## Language conventions
 

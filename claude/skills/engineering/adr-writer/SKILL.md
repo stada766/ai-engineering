@@ -116,4 +116,4 @@ ADR は **歴史的記録**。過去の判断を上書きしない：
 
 - [Michael Nygard original article](references/michael-nygard-template.md)
 - `examples/good-adr.md` / `examples/bad-adr.md`
-- Project Overlay 例: `templates/project-skill-examples/adr-writer-with-runtime-rules/`
+- Project Overlay 例: `claude/templates/project-skill-examples/adr-writer-with-runtime-rules/`

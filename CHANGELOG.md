@@ -8,7 +8,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- `skills/engineering/git-commit-clean/` — Skill for running `git add` / `commit` / `push` without a Co-Authored-By trailer or AI-attribution footer.
+- `claude/` — All Claude Code-specific artifacts now live under this namespace (see ADR 0003).
+- `claude/commands/` — Slash Commands as a first-class category alongside Skills: `/bootstrap`, `/commit`, `/adr`, `/claude-md`. Commands are user-triggered rituals; Skills are AI-discovered lenses.
+- `claude/skills/engineering/claude-md-writer/` — Skill for creating/updating a project's CLAUDE.md as a living instruction file. Backs the `/claude-md` command.
+- `claude/README.md` — overview of the `claude/` sub-namespace and its relationship to vendor-neutral top-level content.
+- `claude/docs/command-authoring.md` — guidance for when to write a Command vs Skill.
+- `docs/decisions/0003-claude-namespace.md` — ADR documenting the namespace split.
+
+### Changed
+- **Layout: Claude Code-specific artifacts moved under `claude/`**. Affected paths:
+  - `skills/` → `claude/skills/`
+  - `commands/` → `claude/commands/` (new in this release, never lived at the old path on main)
+  - `templates/skill/` → `claude/templates/skill/`
+  - `templates/claude-md/` → `claude/templates/claude-md/`
+  - `templates/project-skill-examples/` → `claude/templates/project-skill-examples/`
+  - `scripts/` → `claude/scripts/`
+  - `docs/sync-guide.md`, `docs/skill-authoring.md` → `claude/docs/`
+- `stacks/<lang>/CLAUDE.md` → `stacks/<lang>/ai-instructions.md` (filename is now vendor-neutral; content unchanged).
+- All internal path references (commands, skills, docs, scripts) updated to the new layout. Submodule consumers must now invoke `./.ai/claude/scripts/sync-to-project.sh` instead of `./.ai/scripts/sync-to-project.sh`.
+- `scripts/sync-to-project.sh` — added `--command <name>` and `--list-commands`; `--resync-all` now covers both skills and commands.
+- `scripts/check-drift.sh` — now also diffs `.ai/claude/commands/` against `.claude/commands/`.
+- Top-level `README.md` and `docs/philosophy.md` updated to describe the vendor-neutral / vendor-specific split.
+
+### Removed
+- `skills/engineering/project-bootstrap/` — replaced by `claude/commands/bootstrap.md` before reaching main.
+- `skills/engineering/git-commit-clean/` — replaced by `claude/commands/commit.md`. Original SKILL.md history preserved in commit `c62dc94`.
 - `description:` frontmatter field on every SKILL.md (matches Claude Code's official Skill discovery schema). Lint script now requires it.
 - `Update & Superseding rules` and `Quality Checklist` sections to `adr-writer` (version 0.2.0).
 - `templates/project-skill-examples/adr-writer-with-runtime-rules/` — Project Overlay template demonstrating how to layer project-specific AI runtime and consistency rules on top of the core `adr-writer`.

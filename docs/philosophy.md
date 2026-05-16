@@ -1,6 +1,8 @@
 # Philosophy: AI Native Engineering Playbook
 
-このリポジトリは、AI（特に Claude Code 系のエージェント）と協働するうえで再利用可能な **思想・規約・スキル** を一元管理するための場所である。コードベースではなく、**AI 向けの組織的記憶 (organizational memory)** を扱う。
+このリポジトリは、AI（Claude Code / Cursor / Gemini / Codex 等を想定）と協働するうえで再利用可能な **思想・規約・スキル** を一元管理するための場所である。コードベースではなく、**AI 向けの組織的記憶 (organizational memory)** を扱う。
+
+ベンダ非依存な知識（ADR / 標準 / アーキテクチャパターン / スタックガイド）はトップレベルに、特定 AI ツール固有の実装（現状は `claude/` のみ）はツール名のサブツリーに分けて管理する。
 
 ## なぜ必要か
 
@@ -19,7 +21,7 @@ AI と協働するチームが直面する典型的な問題：
 
 - このリポジトリ自体（`ai-engineering/`）は **source of truth**。
 - 各プロジェクトの `.ai/` は submodule で固定された source の参照。
-- 各プロジェクトの `.claude/` は **runtime**。`scripts/sync-to-project.sh` でコピーされた実体ファイル。
+- 各プロジェクトの `.claude/` は **runtime**。`claude/scripts/sync-to-project.sh` でコピーされた実体ファイル。
 - なぜ symlink ではないか: Windows / WSL / Docker bind mount / Remote container / CI で fragile。編集権限が曖昧になる。**境界を視覚的に明確にする**。
 
 ### 2. 1 skill = 1 responsibility
@@ -33,8 +35,8 @@ AI と協働するチームが直面する典型的な問題：
 
 | 層 | 場所 | 例 |
 |---|---|---|
-| **Core (普遍)** | `ai-engineering/skills/engineering/` | adr-writer, tdd-enforcer |
-| **Stack (技術固有)** | `ai-engineering/skills/backend/` | event-driven-runtime |
+| **Core (普遍)** | `ai-engineering/claude/skills/engineering/` | adr-writer, tdd-enforcer |
+| **Stack (技術固有)** | `ai-engineering/claude/skills/backend/` | event-driven-runtime |
 | **Project Overlay (固有)** | `project/.claude/project-skills/` | producer-ai, broadcast-pacing |
 
 Project Overlay を Core に持ち込まない。Core が薄まると価値が消える。
