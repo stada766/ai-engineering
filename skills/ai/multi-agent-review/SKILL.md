@@ -1,5 +1,6 @@
 ---
 name: multi-agent-review
+description: Coordinate multiple specialized AI agents to review the same artifact and synthesize their findings. Use for high-stakes PRs or designs that need security / architecture / UX viewpoints simultaneously.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: ai

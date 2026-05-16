@@ -1,5 +1,6 @@
 ---
 name: architecture-review
+description: Review a proposed architecture against project constraints and surface mismatches before code is written. Use when evaluating new modules, services, or major refactors.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: engineering

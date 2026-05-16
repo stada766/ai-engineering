@@ -1,5 +1,6 @@
 ---
 name: <skill-name-kebab-case>
+description: <Claude が skill 発動を判断するための一文。"Use when ..." を含めると効果的。>
 version: 0.1.0
 last_updated: <YYYY-MM-DD>
 scope: <engineering | backend | ai | frontend | project>

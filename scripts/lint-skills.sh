@@ -15,7 +15,7 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MAX_BODY_LINES=300
-REQUIRED_FIELDS=(name version last_updated scope responsibility status compatible_with)
+REQUIRED_FIELDS=(name description version last_updated scope responsibility status compatible_with)
 
 fail=0
 

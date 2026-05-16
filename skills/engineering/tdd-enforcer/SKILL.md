@@ -1,5 +1,6 @@
 ---
 name: tdd-enforcer
+description: Drive code changes through red-green-refactor, refusing to write production code without a failing test first. Use when implementing new logic, fixing bugs, or refactoring.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: engineering

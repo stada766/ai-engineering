@@ -1,5 +1,6 @@
 ---
 name: prompt-design
+description: Design a single-purpose prompt with explicit role, input shape, output contract, and failure handling. Use when creating new AI features, agents, or Skills.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: ai

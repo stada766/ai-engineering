@@ -1,5 +1,6 @@
 ---
 name: event-driven-runtime
+description: Guide event-driven runtime design — event shapes, ordering guarantees, idempotency, and replay strategy. Use when introducing pub/sub, message bus, or event sourcing, or when troubleshooting ordering and delivery issues.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: backend

@@ -1,5 +1,6 @@
 ---
 name: websocket-systems
+description: Guide WebSocket-based realtime system design — connection lifecycle, backpressure, reconnect, and fan-out. Use when building new realtime channels or diagnosing unstable connections and message loss.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: backend

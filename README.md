@@ -21,8 +21,8 @@ templates/     SKILL / ADR / CLAUDE.md などの雛形
 standards/     言語横断のコーディング哲学
 architecture/  アーキテクチャパターン
 stacks/        スタック別ガイド (node-typescript / flutter / python-ai)
-adr/           このリポジトリ自体の ADR
 docs/          思想・運用ドキュメント
+  decisions/   このリポジトリ自体の ADR
 scripts/       sync / drift / lint
 tests/         Skill の prompt contract test
 ```

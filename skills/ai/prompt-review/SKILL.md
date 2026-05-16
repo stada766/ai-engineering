@@ -1,5 +1,6 @@
 ---
 name: prompt-review
+description: Review an existing prompt or SKILL.md for responsibility creep, contract clarity, and lifecycle hygiene. Use before modifying or versioning a prompt, or when AI output quality is degrading.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: ai

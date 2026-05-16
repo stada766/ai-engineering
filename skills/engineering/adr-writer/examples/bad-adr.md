@@ -17,7 +17,7 @@
 
 Kubernetes に移行して、ついでに DB も Postgres から MySQL にして、CI も GitHub Actions に変えます。<!-- ❌ 判断複合。3 つの独立した決定が混ざっている。3 本の ADR に分割すべき。 -->
 
-## Alternatives Considered
+## Options Considered
 
 <!-- ❌ 空。代替案ゼロは ADR の意味を失う。最低 2 つ書く（「やらない」も含めて）。 -->
 

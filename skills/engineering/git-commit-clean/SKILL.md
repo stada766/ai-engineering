@@ -1,5 +1,6 @@
 ---
 name: git-commit-clean
+description: Run git add / commit / push on the user's behalf without a Co-Authored-By trailer or AI-attribution footer. Use whenever the user asks to commit or push.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: engineering

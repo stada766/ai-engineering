@@ -13,11 +13,20 @@
 
 We will use **Git submodule for source-of-truth and a copy script for runtime distribution**. `.ai/` を submodule、`.claude/` を runtime コピー先とする。
 
-## Alternatives Considered
+## Options Considered
 
-- **Submodule + symlink**: バージョン固定は強いが、Windows/WSL/Docker/CI で symlink が壊れやすく、編集 authority が曖昧化する。
-- **npm package**: Node 中心ならアリだが、Skill は markdown / prompt / template 中心で package manager と相性が悪い。
-- **コピーのみ（submodule なし）**: 最初は楽だが、静かな分岐が起きやすく drift 検出が事後対応になる。
+- **Submodule + symlink**:
+  - Strengths: バージョン固定が強い / source-of-truth が一意
+  - Weaknesses: Windows / WSL / Docker bind mount / CI で symlink が壊れやすい
+  - Operational impact: 編集 authority が曖昧化し `.claude/` を直接編集する事故が起きる
+- **npm package (`@stada766/claude-skills`)**:
+  - Strengths: Node エコシステムで配布が楽
+  - Weaknesses: Skill 主体が markdown / prompt / template であり package manager との相性が悪い
+  - Operational impact: lockfile / install セマンティクスが Skill の更新サイクルとズレる
+- **コピーのみ（submodule なし）**:
+  - Strengths: 初期コストゼロ
+  - Weaknesses: 静かな drift が起きやすい
+  - Operational impact: 検出が事後対応になり、検証コストが膨らむ
 
 ## Consequences
 

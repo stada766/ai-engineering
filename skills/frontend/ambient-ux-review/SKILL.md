@@ -1,5 +1,6 @@
 ---
 name: ambient-ux-review
+description: Review UI designs against ambient UX principles — low-attention, glanceable, non-intrusive presence. Use for notifications, persistent widgets, always-on products, or background AI feedback surfaces.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: frontend

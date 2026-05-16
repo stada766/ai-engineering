@@ -26,10 +26,11 @@ cp -r templates/skill skills/<scope>/<your-skill-name>
 ```yaml
 ---
 name: your-skill-name           # ディレクトリ名と一致
+description: "<Use when ...>"   # Claude Code が発動判断に使う公式フィールド
 version: 0.1.0                  # semver
 last_updated: 2026-05-16
 scope: engineering              # engineering | backend | ai | frontend | project
-responsibility: "<一文で>"      # ここが最重要
+responsibility: "<一文で>"      # 内部 lint 用の単一責務記述
 status: draft                   # draft → stable → deprecated
 compatible_with:
   - claude-code
@@ -37,6 +38,11 @@ depends_on: []
 superseded_by: null
 ---
 ```
+
+### `description:` と `responsibility:` の違い
+
+- **`description:`** — Claude Code の公式 Skill フォーマットで読み取られるフィールド。**実行時に Claude がこの Skill を発動すべきか判断する** ために使う。トリガとなる条件を含む簡潔な一文。"Use when ..." 形式が有効。
+- **`responsibility:`** — このリポジトリ独自の単一責務宣言。「1 skill = 1 responsibility」を lint で強制するための内部フィールド。書き換えれば外部から見える `description:` も連動更新するのが望ましい。
 
 ## 4. 「責務」を書ききる
 

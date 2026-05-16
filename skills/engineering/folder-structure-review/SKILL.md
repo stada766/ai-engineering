@@ -1,5 +1,6 @@
 ---
 name: folder-structure-review
+description: Review a project's folder structure and flag layering, naming, or responsibility violations. Use when reviewing new layouts or after large refactors.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: engineering

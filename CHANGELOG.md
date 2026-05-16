@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - `skills/engineering/git-commit-clean/` — Skill for running `git add` / `commit` / `push` without a Co-Authored-By trailer or AI-attribution footer.
+- `description:` frontmatter field on every SKILL.md (matches Claude Code's official Skill discovery schema). Lint script now requires it.
+- `Update & Superseding rules` and `Quality Checklist` sections to `adr-writer` (version 0.2.0).
+- `templates/project-skill-examples/adr-writer-with-runtime-rules/` — Project Overlay template demonstrating how to layer project-specific AI runtime and consistency rules on top of the core `adr-writer`.
+
+### Changed
+- ADR storage path: `adr/` → `docs/decisions/`. Existing ADRs moved with `git mv` (history preserved).
+- ADR template: `Alternatives Considered` → `Options Considered` with structured Strengths / Weaknesses / Operational impact bullets.
+- ADR template: `Status` now includes `Superseded by NNNN` as an explicit state.
+- `adr-writer/examples/good-adr.md` and `bad-adr.md` updated to the new Options Considered format.
+- `docs/skill-authoring.md`: documents the distinction between `description:` (Claude Code runtime trigger) and `responsibility:` (internal lint contract).
 
 ## [0.1.0] - 2026-05-16
 

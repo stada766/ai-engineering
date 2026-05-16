@@ -1,5 +1,6 @@
 ---
 name: runtime-boundary-check
+description: Audit a design or codebase for clearly-defined runtime boundaries (process, thread, I/O, network, AI runtime). Use when designing or reviewing concurrent or distributed systems, especially with AI inference involved.
 version: 0.1.0
 last_updated: 2026-05-16
 scope: engineering
