@@ -1,0 +1,59 @@
+---
+name: <skill-name-kebab-case>
+version: 0.1.0
+last_updated: <YYYY-MM-DD>
+scope: <engineering | backend | ai | frontend | project>
+responsibility: "<この Skill が果たす責務を一文で>"
+status: draft                       # draft | stable | deprecated
+compatible_with:
+  - claude-code
+depends_on: []                      # 例: [engineering/naming]
+superseded_by: null                 # deprecated 時に後継 skill 名を入れる
+tests: null                         # 例: tests/<skill-name>/
+---
+
+# <Skill Name>
+
+## What this skill does
+
+<1〜3 文で、この Skill が AI に何をさせるのかを書く。`responsibility:` の展開版。>
+
+## When to invoke
+
+<どんなユーザリクエスト・コンテキストで発動すべきかを箇条書き。>
+
+- ...
+- ...
+
+## When NOT to invoke
+
+<逆に発動してはいけないケース。責務 creep を防ぐ。>
+
+- ...
+
+## Procedure
+
+<AI が踏むべき手順をステップで。>
+
+1. ...
+2. ...
+3. ...
+
+## Output format
+
+<期待される出力フォーマット・構造。Prompt contract testing の input になる部分。>
+
+```
+<example output structure>
+```
+
+## Anti-patterns
+
+<このスキルを使ったときに陥りがちな失敗。>
+
+- ...
+
+## References
+
+- `examples/` 内のサンプル
+- 外部参照（あれば）
