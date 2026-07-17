@@ -156,7 +156,9 @@ case "$mode" in
       echo "Nothing to do. Pass --skill <scope/name> or --command <name>, or use --list / --list-commands." >&2
       exit 1
     fi
-    for s in "${skills[@]}";   do copy_skill "$s"; done
-    for c in "${commands[@]}"; do copy_command "$c"; done
+    # bash 3.2 (macOS default) treats "${arr[@]}" on an empty array as unbound
+    # under `set -u`. The ${arr[@]+...} guard expands to nothing when unset.
+    for s in ${skills[@]+"${skills[@]}"};   do copy_skill "$s"; done
+    for c in ${commands[@]+"${commands[@]}"}; do copy_command "$c"; done
     ;;
 esac
