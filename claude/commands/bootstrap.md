@@ -13,6 +13,7 @@ This command is for **empty projects only**. Before doing anything else, check:
 
 - `docs/decisions/` does not exist or is empty
 - `CLAUDE.md` does not exist
+- `ARCHITECTURE.md` does not exist
 
 If either exists, **stop immediately** and tell the user to use `/adr` or `/claude-md` instead. Do not overwrite.
 
@@ -77,6 +78,16 @@ Follow `claude-md-writer` conventions. Start from `.ai/claude/templates/claude-m
 5. Don'ts (derived from Phase 1's non-goals and constraints)
 6. Active ADRs (list every ADR from Phase 4 with its status)
 
+### Phase 5.5 — Architecture Doc scaffold
+
+Create `ARCHITECTURE.md` at project root — the **living source of truth for the current design** (distinct from ADRs, which record *why*). See `standards/documentation-model.md`.
+
+- Start from `.ai/templates/architecture/overview-template.md`.
+- Fill §1–§4 from Phase 1–3 (purpose / non-goals / constraints / runtime topology / main components).
+- Build §5 Key Decisions from the Phase 4 ADRs (area → choice → `ADR-NNNN`). At bootstrap the ADRs are `Proposed`; still list them, and note in §7 that they await Acceptance.
+- Leave genuine unknowns as `<未定>` in §7 Open Questions. **Do not fabricate.**
+- `status: draft`, `last_updated` = today.
+
 ### Phase 6 — Validation
 
 Self-check before showing the user:
@@ -85,6 +96,7 @@ Self-check before showing the user:
 - [ ] Every ADR passes the adr-writer Quality Checklist
 - [ ] ADR count is between 3 and 8
 - [ ] CLAUDE.md section order is canonical
+- [ ] ARCHITECTURE.md exists; §5 lists every ADR; unknowns are `<未定>`, not fabricated
 - [ ] Open vision questions are listed separately for follow-up
 - [ ] No existing file is being overwritten
 
@@ -102,6 +114,7 @@ docs/decisions/
   0002-<title>.md   Status: Proposed   <one-line summary>
   ...
 
+ARCHITECTURE.md    <one-line summary — current design map>
 CLAUDE.md          <one-line summary>
 
 Open questions (未回答 vision 項目):

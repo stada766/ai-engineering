@@ -17,6 +17,7 @@ cmd:bootstrap
 cmd:sync-recommended
 cmd:commit
 cmd:adr
+cmd:architecture
 cmd:claude-md
 cmd:promote
 

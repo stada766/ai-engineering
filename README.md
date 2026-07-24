@@ -127,6 +127,7 @@ Co-Authored-By トレーラーや AI 帰属フッターを付けずに commit & 
 | やりたいこと | コマンド |
 |---|---|
 | 新しい設計判断を残す | `/adr <短いタイトル>` |
+| 現在の設計の正典を作る / 追従させる | `/architecture` |
 | CLAUDE.md の Active skills や Don'ts を更新 | `/claude-md` |
 | Skill / Command を追加で sync | `./.ai/claude/scripts/sync-to-project.sh --skill <scope>/<name> --command <name>` |
 | 利用可能な Skill / Command を一覧 | `./.ai/claude/scripts/sync-to-project.sh --list` / `--list-commands` |
@@ -134,6 +135,26 @@ Co-Authored-By トレーラーや AI 帰属フッターを付けずに commit & 
 | 上流の playbook が更新された | `cd .ai && git pull origin main && cd ..` → `./.ai/claude/scripts/sync-to-project.sh --resync-all` |
 | 整合性検査（runtime と source の乖離） | `./.ai/claude/scripts/check-drift.sh` |
 | コミット & push（AI 帰属無し） | `/commit` |
+
+---
+
+## ドキュメントモデル（ADR / Architecture Doc / Design Doc）
+
+設計文書を 3 層に役割分担する。**「実装が増えると現在の設計の正解が分からない」問題の答えは `ARCHITECTURE.md`**（常に最新に保つ正典）であって、ADR でも Design Doc でもない。
+
+| 層 | 場所 | 時制 | 答えるもの |
+|---|---|---|---|
+| **ADR** | `docs/decisions/` | 過去の一点（不変） | **なぜ**その判断をしたか |
+| **Architecture Doc** | `ARCHITECTURE.md` | **常に現在** | **今の**正しい設計 |
+| **Design Doc** | `docs/design/`（任意） | 実装前の一点 | これから**何を作るか** |
+
+運用のキモ:
+
+- **設計を変える PR では `ARCHITECTURE.md` を同じ PR で更新する。** コードと正典を同時に動かしてズレを防ぐ。
+- **ADR が Accepted になったら結論を `ARCHITECTURE.md` §5 に反映**（`/architecture` で reconcile）。ADR は Why、Architecture Doc は現在の姿。rationale を二重に書かない。
+- Design Doc は大型機能の実装前レビュー用（任意）。実装後は結論を `ARCHITECTURE.md` に溶かして archive。
+
+詳細ルールは `standards/documentation-model.md`、雛形は `templates/architecture/` と `templates/design/`。
 
 ---
 
@@ -243,6 +264,7 @@ skill:engineering/claude-md-writer
 ai-engineering/
 ├── install.sh                    ← ワンライナー setup
 ├── README.md                     ← この文書
+├── ARCHITECTURE.md               ← 現在の設計の正典 (living doc)
 ├── CHANGELOG.md
 ├── VERSION
 │
@@ -256,7 +278,7 @@ ai-engineering/
 │   │   └── frontend/             ambient-ux-review
 │   ├── commands/                 ユーザ明示起動の Slash Command
 │   │                             bootstrap, sync-recommended, commit, adr,
-│   │                             claude-md, promote
+│   │                             architecture, claude-md, promote
 │   ├── templates/
 │   │   ├── skill/                SKILL.md 雛形
 │   │   ├── claude-md/            プロジェクト用 CLAUDE.md スタック別雛形
@@ -266,7 +288,7 @@ ai-engineering/
 │
 │ ↓ ここから下は AI ツール非依存
 ├── prompts/                      軽量な再利用プロンプト
-├── standards/                    言語横断のコーディング哲学（命名 / エラー処理 / テスト / コメント）
+├── standards/                    言語横断のコーディング哲学（命名 / エラー処理 / テスト / コメント / documentation-model）
 ├── architecture/patterns/        アーキテクチャパターン（event-driven / runtime-separation / AI runtime boundary）
 ├── stacks/                       スタック別 AI Instructions
 │   ├── node-typescript/ai-instructions.md
@@ -274,9 +296,12 @@ ai-engineering/
 │   └── python-ai/ai-instructions.md
 ├── templates/
 │   ├── adr/                      ADR テンプレ (Nygard)
+│   ├── architecture/            Architecture Doc テンプレ (living doc)
+│   ├── design/                  Design Doc テンプレ (実装前提案)
 │   └── pr-description.md
 └── docs/
     ├── decisions/                このリポジトリ自体の ADR
+    ├── design/                   Design Doc 置き場（任意・大型機能用）
     └── philosophy.md             思想
 ```
 

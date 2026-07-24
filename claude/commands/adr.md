@@ -25,6 +25,7 @@ Invoke the `adr-writer` skill (`.claude/skills/adr-writer/SKILL.md` when sync'd,
 5. File path: `docs/decisions/NNNN-<kebab-title>.md`
 6. `Status: Proposed` (human elevates to `Accepted` on merge)
 7. Apply the Quality Checklist (see adr-writer skill)
+8. **Reflect into the living doc**: when this ADR becomes `Accepted`, its conclusion must be reflected into `ARCHITECTURE.md` (§5 Key Decisions + the relevant section). Run `/architecture` to reconcile — the ADR carries the *why*, `ARCHITECTURE.md` carries the *current design*. See `standards/documentation-model.md`.
 
 ### When to refuse / redirect
 

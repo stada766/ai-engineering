@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Documentation model (3-layer): ADR / Architecture Doc / Design Doc.** ADR records *why* (immutable log), `ARCHITECTURE.md` records the *current* design (single living source of truth), Design Doc records an *unimplemented proposal*. Solves "as implementation grows, which doc is the current correct design?" — the answer is `ARCHITECTURE.md`, kept current in the same PR as design changes.
+  - `standards/documentation-model.md` — the vendor-neutral standard: comparison table, which-layer decision flow, cross-layer flow (Design Doc → ADR → Architecture Doc), anti-patterns.
+  - `templates/architecture/overview-template.md` — arc42-lite living Architecture Doc template (house style: frontmatter + wikilinks).
+  - `templates/design/0000-template.md` — Design Doc template for pre-implementation proposals.
+  - `claude/commands/architecture.md` (`/architecture`) — create/reconcile `ARCHITECTURE.md`; reflects Accepted ADRs into §5, drops Superseded ones. Added to `always-include.txt`.
+  - `ARCHITECTURE.md` (this repo, dogfood) — the living design map, linking philosophy / patterns / ADRs.
+  - `/adr` now reflects Accepted ADRs into `ARCHITECTURE.md`; `/bootstrap` scaffolds `ARCHITECTURE.md` (Phase 5.5) alongside ADRs and CLAUDE.md.
 - `claude/always-include.txt` — editable default-toolkit policy file. Lists Skills and Commands that are always synced by `install.sh` and always classified as "Add" by `/sync-recommended`, regardless of project context. Repo-level configuration (not project-level).
 - `claude/scripts/sync-to-project.sh --always` — new mode that reads `always-include.txt` and syncs everything listed.
 - `install.sh` (top-level, curl-able) — one-liner project bootstrap. Adds ai-engineering as a submodule, creates `.claude/` runtime dirs, and runs `sync-to-project.sh --always`.
